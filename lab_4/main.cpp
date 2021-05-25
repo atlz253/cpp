@@ -11,25 +11,31 @@ using namespace std;
 template <class T>
 stack<T> *st;
 
-class Menu final {
+class Menu final
+{
  private:
   int _stackType = -1;
 
   template <typename T>
-  T _input(const string &message) {
+  T _input(const string &message)
+  {
     T num;
 
-    while (true) {
+    while (true)
+    {
       char c;
       cout << message;
       cin >> num;
       c = getchar();
 
-      if (cin.fail() || c != '\n') {
+      if (cin.fail() || c != '\n')
+      {
         cout << "Ошибка ввода!" << endl;
         cin.clear();
         cin.ignore(32767, '\n');
-      } else {
+      }
+      else
+      {
         break;
       }
     }
@@ -38,11 +44,13 @@ class Menu final {
   }
 
   template <class T>
-  void _test(void) {
+  void _test(void)
+  {
     CLEAR;
     int input = 0;
 
-    while (true) {
+    while (true)
+    {
       cout << "1. добавить элемент" << endl
            << "2. удалить элемент" << endl
            << "3. отсортировать элементы" << endl
@@ -51,17 +59,25 @@ class Menu final {
 
       input = _input<int>("Ввод: ");
 
-      switch (input) {
+      switch (input)
+      {
         case 1:
-          if (_stackType == 1) {
+          if (_stackType == 1)
+          {
             st<T>->push(_input<float>("Введите число: "));
-          } else if (_stackType == 2) {
+          }
+          else if (_stackType == 2)
+          {
             short int num;
-            while (true) {
+            while (true)
+            {
               num = _input<int>("Введите число: ");
-              if (num < 0 || num > 127) {
+              if (num < 0 || num > 127)
+              {
                 cout << "Ошибка ввода!" << endl;
-              } else {
+              }
+              else
+              {
                 st<T>->push((char)num);
                 break;
               }
@@ -100,24 +116,29 @@ class Menu final {
   }
 
   template <class T>
-  void _sort(stack<T> *st) {
+  void _sort(stack<T> *st)
+  {
     stack<T> t1, t2;
-    do {
+    do
+    {
       t1.push(st->top());
       st->pop();
-      while (!st->empty()) {
+      while (!st->empty())
+      {
         if (st->top() > t1.top())
           t1.push(st->top());
         else
           t2.push(st->top());
         st->pop();
       }
-      while (!t1.empty()) {
+      while (!t1.empty())
+      {
         st->push(t1.top());
         t1.pop();
       }
       if (t2.empty()) break;
-      while (!t2.empty()) {
+      while (!t2.empty())
+      {
         st->push(t2.top());
         t2.pop();
       }
@@ -126,8 +147,10 @@ class Menu final {
   }
 
   template <class T>
-  void _print(stack<T> *st) {
-    if (!st->empty()) {
+  void _print(stack<T> *st)
+  {
+    if (!st->empty())
+    {
       T x = st->top();
       st->pop();
 
@@ -138,9 +161,11 @@ class Menu final {
   }
 
  public:
-  int run(void) {
+  int run(void)
+  {
     int input = 0;
-    while (true) {
+    while (true)
+    {
       CLEAR;
       cout << "Выберите пункт меню:" << endl
            << "1. стек с типом float" << endl
@@ -150,7 +175,8 @@ class Menu final {
       input = _input<int>("Ввод: ");
 
       _stackType = input;
-      switch (input) {
+      switch (input)
+      {
         case 1:
         case 2:
           if (_stackType == 1)

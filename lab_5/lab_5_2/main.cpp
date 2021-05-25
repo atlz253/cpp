@@ -5,7 +5,8 @@
 
 using namespace std;
 
-int main() {
+int main()
+{
   int minX = -10, maxX = 10;
 
   SDL_Init(SDL_INIT_VIDEO);
@@ -17,9 +18,11 @@ int main() {
 
   bool isRunning = true, aDirection = true;
   SDL_Event e;
-  while (isRunning) {
+  while (isRunning)
+  {
     SDL_PollEvent(&e);
-    switch (e.type) {
+    switch (e.type)
+    {
       case SDL_QUIT:
         SDL_DestroyWindow(w);
         SDL_Quit();
@@ -43,67 +46,55 @@ int main() {
 
     SDL_SetRenderDrawColor(r, 255, 250, 250, 0xff);
     /* y = 0 */
-    SDL_RenderDrawLineF(r, Width / 2 - 5 * scaleX, Height / 2,
-                        Width / 2 + 5 * scaleX, Height / 2);
+    SDL_RenderDrawLineF(r, Width / 2 - 5 * scaleX, Height / 2, Width / 2 + 5 * scaleX, Height / 2);
 
     /* x = 0 */
-    SDL_RenderDrawLineF(r, Width / 2, Height / 2 - 5 * scaleY, Width / 2,
-                        Height / 2 + 5 * scaleY);
+    SDL_RenderDrawLineF(r, Width / 2, Height / 2 - 5 * scaleY, Width / 2, Height / 2 + 5 * scaleY);
 
     /* косой крест */
-    SDL_RenderDrawLineF(r, Width / 2 - 5 * scaleX, Height / 2 + 5 * scaleY,
-                        Width / 2 + 5 * scaleX, Height / 2 - 5 * scaleY);
-    SDL_RenderDrawLineF(r, Width / 2 + 5 * scaleX, Height / 2 + 5 * scaleY,
-                        Width / 2 - 5 * scaleX, Height / 2 - 5 * scaleY);
+    SDL_RenderDrawLineF(r, Width / 2 - 5 * scaleX, Height / 2 + 5 * scaleY, Width / 2 + 5 * scaleX,
+                        Height / 2 - 5 * scaleY);
+    SDL_RenderDrawLineF(r, Width / 2 + 5 * scaleX, Height / 2 + 5 * scaleY, Width / 2 - 5 * scaleX,
+                        Height / 2 - 5 * scaleY);
 
-    for (size_t i = 0; i < 3; i++) {
-      SDL_RenderDrawLineF(
-          r, Width / 2 - (5 - i) * scaleX, Height / 2 + (5 - i) * scaleY,
-          Width / 2 - (5 - i) * scaleX, Height / 2 + (4 - i) * scaleY);
-      SDL_RenderDrawLineF(
-          r, Width / 2 - (5 - i) * scaleX, Height / 2 + (5 - i) * scaleY,
-          Width / 2 - (4.375 - i) * scaleX, Height / 2 + (5 - i) * scaleY);
-      SDL_RenderDrawLineF(
-          r, Width / 2 + (5 - i) * scaleX, Height / 2 + (5 - i) * scaleY,
-          Width / 2 + (5 - i) * scaleX, Height / 2 + (4 - i) * scaleY);
-      SDL_RenderDrawLineF(
-          r, Width / 2 + (5 - i) * scaleX, Height / 2 + (5 - i) * scaleY,
-          Width / 2 + (4.375 - i) * scaleX, Height / 2 + (5 - i) * scaleY);
-      SDL_RenderDrawLineF(
-          r, Width / 2 - (5 - i) * scaleX, Height / 2 - (5 - i) * scaleY,
-          Width / 2 - (5 - i) * scaleX, Height / 2 - (4 - i) * scaleY);
-      SDL_RenderDrawLineF(
-          r, Width / 2 - (5 - i) * scaleX, Height / 2 - (5 - i) * scaleY,
-          Width / 2 - (4.375 - i) * scaleX, Height / 2 - (5 - i) * scaleY);
-      SDL_RenderDrawLineF(
-          r, Width / 2 + (5 - i) * scaleX, Height / 2 - (5 - i) * scaleY,
-          Width / 2 + (5 - i) * scaleX, Height / 2 - (4 - i) * scaleY);
-      SDL_RenderDrawLineF(
-          r, Width / 2 + (5 - i) * scaleX, Height / 2 - (5 - i) * scaleY,
-          Width / 2 + (4.375 - i) * scaleX, Height / 2 - (5 - i) * scaleY);
+    for (size_t i = 0; i < 3; i++)
+    {
+      SDL_RenderDrawLineF(r, Width / 2 - (5 - i) * scaleX, Height / 2 + (5 - i) * scaleY, Width / 2 - (5 - i) * scaleX,
+                          Height / 2 + (4 - i) * scaleY);
+      SDL_RenderDrawLineF(r, Width / 2 - (5 - i) * scaleX, Height / 2 + (5 - i) * scaleY,
+                          Width / 2 - (4.375 - i) * scaleX, Height / 2 + (5 - i) * scaleY);
+      SDL_RenderDrawLineF(r, Width / 2 + (5 - i) * scaleX, Height / 2 + (5 - i) * scaleY, Width / 2 + (5 - i) * scaleX,
+                          Height / 2 + (4 - i) * scaleY);
+      SDL_RenderDrawLineF(r, Width / 2 + (5 - i) * scaleX, Height / 2 + (5 - i) * scaleY,
+                          Width / 2 + (4.375 - i) * scaleX, Height / 2 + (5 - i) * scaleY);
+      SDL_RenderDrawLineF(r, Width / 2 - (5 - i) * scaleX, Height / 2 - (5 - i) * scaleY, Width / 2 - (5 - i) * scaleX,
+                          Height / 2 - (4 - i) * scaleY);
+      SDL_RenderDrawLineF(r, Width / 2 - (5 - i) * scaleX, Height / 2 - (5 - i) * scaleY,
+                          Width / 2 - (4.375 - i) * scaleX, Height / 2 - (5 - i) * scaleY);
+      SDL_RenderDrawLineF(r, Width / 2 + (5 - i) * scaleX, Height / 2 - (5 - i) * scaleY, Width / 2 + (5 - i) * scaleX,
+                          Height / 2 - (4 - i) * scaleY);
+      SDL_RenderDrawLineF(r, Width / 2 + (5 - i) * scaleX, Height / 2 - (5 - i) * scaleY,
+                          Width / 2 + (4.375 - i) * scaleX, Height / 2 - (5 - i) * scaleY);
     }
 
-    for (size_t i = 0; i < 3; i++) {
-      SDL_RenderDrawLineF(r, Width / 2, Height / 2 + (5 - i) * scaleY,
-                          Width / 2 + 0.75 * scaleX,
+    for (size_t i = 0; i < 3; i++)
+    {
+      SDL_RenderDrawLineF(r, Width / 2, Height / 2 + (5 - i) * scaleY, Width / 2 + 0.75 * scaleX,
                           Height / 2 + (4 - i) * scaleY);
-      SDL_RenderDrawLineF(r, Width / 2, Height / 2 + (5 - i) * scaleY,
-                          Width / 2 - 0.75 * scaleX,
+      SDL_RenderDrawLineF(r, Width / 2, Height / 2 + (5 - i) * scaleY, Width / 2 - 0.75 * scaleX,
                           Height / 2 + (4 - i) * scaleY);
-      SDL_RenderDrawLineF(r, Width / 2, Height / 2 - (5 - i) * scaleY,
-                          Width / 2 + 0.75 * scaleX,
+      SDL_RenderDrawLineF(r, Width / 2, Height / 2 - (5 - i) * scaleY, Width / 2 + 0.75 * scaleX,
                           Height / 2 - (4 - i) * scaleY);
-      SDL_RenderDrawLineF(r, Width / 2, Height / 2 - (5 - i) * scaleY,
-                          Width / 2 - 0.75 * scaleX,
+      SDL_RenderDrawLineF(r, Width / 2, Height / 2 - (5 - i) * scaleY, Width / 2 - 0.75 * scaleX,
                           Height / 2 - (4 - i) * scaleY);
-      SDL_RenderDrawLineF(r, Width / 2 - (5 - i) * scaleX, Height / 2,
-                          Width / 2 - (4 - i) * scaleX, Height / 2 + scaleY);
-      SDL_RenderDrawLineF(r, Width / 2 - (5 - i) * scaleX, Height / 2,
-                          Width / 2 - (4 - i) * scaleX, Height / 2 - scaleY);
-      SDL_RenderDrawLineF(r, Width / 2 + (5 - i) * scaleX, Height / 2,
-                          Width / 2 + (4 - i) * scaleX, Height / 2 + scaleY);
-      SDL_RenderDrawLineF(r, Width / 2 + (5 - i) * scaleX, Height / 2,
-                          Width / 2 + (4 - i) * scaleX, Height / 2 - scaleY);
+      SDL_RenderDrawLineF(r, Width / 2 - (5 - i) * scaleX, Height / 2, Width / 2 - (4 - i) * scaleX,
+                          Height / 2 + scaleY);
+      SDL_RenderDrawLineF(r, Width / 2 - (5 - i) * scaleX, Height / 2, Width / 2 - (4 - i) * scaleX,
+                          Height / 2 - scaleY);
+      SDL_RenderDrawLineF(r, Width / 2 + (5 - i) * scaleX, Height / 2, Width / 2 + (4 - i) * scaleX,
+                          Height / 2 + scaleY);
+      SDL_RenderDrawLineF(r, Width / 2 + (5 - i) * scaleX, Height / 2, Width / 2 + (4 - i) * scaleX,
+                          Height / 2 - scaleY);
     }
 
     SDL_RenderPresent(r);

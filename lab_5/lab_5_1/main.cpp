@@ -5,7 +5,8 @@
 
 using namespace std;
 
-int main() {
+int main()
+{
   int minX, maxX;
   cout << "Введите xmin" << endl;
   cin >> minX;
@@ -22,8 +23,10 @@ int main() {
   SDL_Renderer *r = SDL_CreateRenderer(w, -1, 0);
 
   SDL_Event e;
-  while (SDL_WaitEvent(&e)) {
-    switch (e.type) {
+  while (SDL_WaitEvent(&e))
+  {
+    switch (e.type)
+    {
       case SDL_QUIT:
         SDL_DestroyWindow(w);
         SDL_Quit();
@@ -35,12 +38,10 @@ int main() {
 
     SDL_SetRenderDrawColor(r, 0xee, 0xee, 0xee, 0xff);
     /* вертикальные линии */
-    for (int i = 0; i < 64; i++)
-      SDL_RenderDrawLine(r, (Width / 64 * i), 0, (Width / 64 * i), Height);
+    for (int i = 0; i < 64; i++) SDL_RenderDrawLine(r, (Width / 64 * i), 0, (Width / 64 * i), Height);
 
     /* горизонтальные линии */
-    for (int i = 0; i < 36; i++)
-      SDL_RenderDrawLineF(r, 0, (Height / 36 * i), Width, (Height / 36 * i));
+    for (int i = 0; i < 36; i++) SDL_RenderDrawLineF(r, 0, (Height / 36 * i), Width, (Height / 36 * i));
 
     SDL_SetRenderDrawColor(r, 0xee, 0x00, 0x00, 0xff);
     /* ось X */
@@ -51,7 +52,8 @@ int main() {
 
     SDL_SetRenderDrawColor(r, 0x00, 0x00, 0x00, 0xff);
     int oldX = 0, oldY = 0;
-    for (float x = minX; x < maxX; x += 0.01) {
+    for (float x = minX; x < maxX; x += 0.00001)
+    {
       float y = (5) / (x * x);
       float newX = Width / 2 + x * scaleX, newY = Height / 2 - y * scaleY;
 

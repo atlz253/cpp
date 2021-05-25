@@ -11,20 +11,25 @@
 
 using namespace std;
 
-float input(const string &message) {
+float input(const string &message)
+{
   float num;
 
-  while (true) {
+  while (true)
+  {
     char c;
     cout << message;
     cin >> num;
     c = getchar();
 
-    if (cin.fail() || c != '\n') {
+    if (cin.fail() || c != '\n')
+    {
       cout << "Ошибка ввода!" << endl;
       cin.clear();
       cin.ignore(32767, '\n');
-    } else {
+    }
+    else
+    {
       break;
     }
   }
@@ -32,93 +37,104 @@ float input(const string &message) {
   return num;
 }
 
-class ComplexNum {
+class ComplexNum
+{
  private:
   float _real;
   float _imaginary;
 
  public:
-  ComplexNum() {
+  ComplexNum()
+  {
     _real = 0;
     _imaginary = 0;
     DBGPRINT("ComplexNum (" << this << "): конструктор без параметров\n");
   }
 
-  ComplexNum(const float real, const float imaginary) {
+  ComplexNum(const float real, const float imaginary)
+  {
     _real = real;
     _imaginary = imaginary;
     DBGPRINT("ComplexNum (" << this << "): конструктор с параметрами\n");
   }
 
-  ComplexNum(const ComplexNum &object) {
+  ComplexNum(const ComplexNum &object)
+  {
     _real = object._real;
     _imaginary = object._imaginary;
     DBGPRINT("ComplexNum (" << this << "): конструктор копирования\n");
   }
 
-  float get_real(void) {
+  float get_real(void)
+  {
     DBGPRINT("get_real: получение a\n");
     return _real;
   }
 
-  float get_imaginary(void) {
+  float get_imaginary(void)
+  {
     DBGPRINT("get_imaginary: получение b\n");
     return _imaginary;
   }
 
-  void set_real(const float real) {
+  void set_real(const float real)
+  {
     DBGPRINT("set_real: установка a\n");
     _real = real;
   }
 
-  void set_imaginary(const float imaginary) {
+  void set_imaginary(const float imaginary)
+  {
     DBGPRINT("set_imaginary: установка b\n");
     _imaginary = imaginary;
   }
 
-  void input_real(void) {
+  void input_real(void)
+  {
     DBGPRINT("imaginary_input: ввод a\n");
     _real = input("Введите a: ");
   }
 
-  void input_imaginary(void) {
+  void input_imaginary(void)
+  {
     DBGPRINT("imaginary_input: ввод b\n");
     _imaginary = input("Введите b: ");
   }
 
-  ComplexNum *operator/(const ComplexNum &d) {
+  ComplexNum *operator/(const ComplexNum &d)
+  {
     DBGPRINT("operator/: деление комплексных чисел\n");
     return new ComplexNum(
-        (_real * d._real + _imaginary * d._imaginary) /
-            (d._real * d._real + d._imaginary * d._imaginary),
-        (d._real * _imaginary - d._imaginary * _real) /
-            (d._real * d._real + d._imaginary * d._imaginary));
+        (_real * d._real + _imaginary * d._imaginary) / (d._real * d._real + d._imaginary * d._imaginary),
+        (d._real * _imaginary - d._imaginary * _real) / (d._real * d._real + d._imaginary * d._imaginary));
   }
 
-  bool operator>=(const ComplexNum &s) {
+  bool operator>=(const ComplexNum &s)
+  {
     DBGPRINT("operator>=: сравнение комплексных чисел\n");
-    if (sqrt(_real * _real + _imaginary * _imaginary) >=
-        sqrt(s._real * s._real + s._imaginary * s._imaginary))
+    if (sqrt(_real * _real + _imaginary * _imaginary) >= sqrt(s._real * s._real + s._imaginary * s._imaginary))
       return true;
     else
       return false;
   }
 
-  bool operator<=(const ComplexNum &s) {
+  bool operator<=(const ComplexNum &s)
+  {
     DBGPRINT("operator<=: сравнение комплексных чисел\n");
-    if (sqrt(_real * _real + _imaginary * _imaginary) <=
-        sqrt(s._real * s._real + s._imaginary * s._imaginary))
+    if (sqrt(_real * _real + _imaginary * _imaginary) <= sqrt(s._real * s._real + s._imaginary * s._imaginary))
       return true;
     else
       return false;
   }
 
-  ComplexNum *operator!() {
+  ComplexNum *operator!()
+  {
     DBGPRINT("operator!: получение сопряженного комплексного числа\n");
     return new ComplexNum(_real, -_imaginary);
   }
 
-  friend ostream &operator<<(ostream &stream, ComplexNum *n) {
+  friend ostream &operator<<(ostream &stream, ComplexNum *n)
+  {
     DBGPRINT("[friend ostream &operator<<: дружественная функция вывода] ");
     cout.setf(ios::fixed);
     stream << setprecision(2) << n->_real;
@@ -128,7 +144,8 @@ class ComplexNum {
     return stream;
   }
 
-  friend istream &operator>>(istream &stream, ComplexNum *n) {
+  friend istream &operator>>(istream &stream, ComplexNum *n)
+  {
     DBGPRINT("[friend ostream &operator>>: дружественная функция ввода] ");
     n->input_real();
     n->input_imaginary();
@@ -138,12 +155,15 @@ class ComplexNum {
   ~ComplexNum() { DBGPRINT("~ComplexNum (" << this << "): объект удален\n"); }
 };
 
-class Menu {
+class Menu
+{
  public:
-  void init(void) {
+  void init(void)
+  {
     short int choice = 0;
 
-    while (true) {
+    while (true)
+    {
       CLEAR;
       cout << "1. создать объект без параметров" << endl;
       cout << "2. создать объект с параметрами" << endl;
@@ -161,30 +181,40 @@ class Menu {
       cin >> choice;
       CLEAR;
 
-      if (cin.fail()) {
+      if (cin.fail())
+      {
         cout << "Ошибка ввода!" << endl;
         cin.clear();
         cin.ignore(32767, '\n');
         PAUSE;
-      } else if (choice == 1) {
+      }
+      else if (choice == 1)
+      {
         delete new ComplexNum();
         PAUSE;
-      } else if (choice == 2) {
+      }
+      else if (choice == 2)
+      {
         delete new ComplexNum(input("Введите a: "), input("Введите b: "));
         PAUSE;
-      } else if (choice == 3) {
-        ComplexNum *obj =
-            new ComplexNum(input("Введите a: "), input("Введите b: "));
+      }
+      else if (choice == 3)
+      {
+        ComplexNum *obj = new ComplexNum(input("Введите a: "), input("Введите b: "));
         delete new ComplexNum(*obj);
         delete obj;
         PAUSE;
-      } else if (choice == 4) {
+      }
+      else if (choice == 4)
+      {
         ComplexNum *obj = new ComplexNum();
         cin >> obj;
         cout << obj << endl;
         delete obj;
         PAUSE;
-      } else if (choice == 5) {
+      }
+      else if (choice == 5)
+      {
         ComplexNum *obj = new ComplexNum();
         cout << "Для тестирования функции вывода необходимо создать новый "
                 "объект класса"
@@ -193,20 +223,26 @@ class Menu {
         cout << "Вывод: " << obj << endl;
         delete obj;
         PAUSE;
-      } else if (choice == 6) {
+      }
+      else if (choice == 6)
+      {
         ComplexNum *obj = new ComplexNum();
         obj->set_real(input("Введите a: "));
         obj->set_imaginary(input("Введите b: "));
         cout << obj << endl;
         delete obj;
         PAUSE;
-      } else if (choice == 7) {
+      }
+      else if (choice == 7)
+      {
         ComplexNum *obj = new ComplexNum();
         cin >> obj;
         cout << obj->get_real() << endl << obj->get_imaginary() << endl;
         delete obj;
         PAUSE;
-      } else if (choice == 8) {
+      }
+      else if (choice == 8)
+      {
         ComplexNum *obj_1 = new ComplexNum(), *obj_2 = new ComplexNum();
         cout << "Введите делимое" << endl;
         cin >> obj_1;
@@ -217,7 +253,9 @@ class Menu {
         delete obj_1;
         delete obj_2;
         PAUSE;
-      } else if (choice == 9) {
+      }
+      else if (choice == 9)
+      {
         ComplexNum *obj_1 = new ComplexNum(), *obj_2 = new ComplexNum();
         cout << "Введите левое число" << endl;
         cin >> obj_1;
@@ -230,7 +268,9 @@ class Menu {
         delete obj_1;
         delete obj_2;
         PAUSE;
-      } else if (choice == 10) {
+      }
+      else if (choice == 10)
+      {
         ComplexNum *obj_1 = new ComplexNum(), *obj_2 = new ComplexNum();
         cout << "Введите левое число" << endl;
         cin >> obj_1;
@@ -243,16 +283,22 @@ class Menu {
         delete obj_1;
         delete obj_2;
         PAUSE;
-      } else if (choice == 11) {
+      }
+      else if (choice == 11)
+      {
         ComplexNum *obj = new ComplexNum();
         cout << "Введите комплексное число" << endl;
         cin >> obj;
         cout << "Сопряженное число: " << !*obj << endl;
         delete obj;
         PAUSE;
-      } else if (choice == 0) {
+      }
+      else if (choice == 0)
+      {
         break;
-      } else {
+      }
+      else
+      {
         cout << "Ошибка ввода!" << endl;
         cin.ignore(32767, '\n');
       }
@@ -260,7 +306,8 @@ class Menu {
   }
 };
 
-int main() {
+int main()
+{
   Menu *menu = new Menu();
   menu->init();
   delete menu;
