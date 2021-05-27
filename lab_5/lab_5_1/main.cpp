@@ -52,7 +52,7 @@ int main()
 
     SDL_SetRenderDrawColor(r, 0x00, 0x00, 0x00, 0xff);
     int oldX = 0, oldY = 0;
-    for (float x = minX; x < maxX; x += 0.00001)
+    for (float x = minX; x < maxX; x += 0.01)
     {
       float y = (5) / (x * x);
       float newX = Width / 2 + x * scaleX, newY = Height / 2 - y * scaleY;
