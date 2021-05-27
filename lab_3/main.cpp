@@ -12,9 +12,10 @@ class IStack
 {
  public:
   bool virtual isEmpty() = 0;
-  virtual float top() = 0;
-  virtual float pop() = 0;
+  virtual T top() = 0;
+  virtual T pop() = 0;
   virtual int push(T) = 0;
+  virtual int getType() = 0;
   virtual ~IStack(){};
 };
 
@@ -42,9 +43,9 @@ class StackVector final : public IStack<T>
       return false;
   }
 
-  virtual float top() override { return _data[_top]; }
+  virtual T top() override { return _data[_top]; }
 
-  virtual float pop() override { return _data[_top--]; }
+  virtual T pop() override { return _data[_top--]; }
 
   virtual int push(T data) override
   {
@@ -52,6 +53,8 @@ class StackVector final : public IStack<T>
     _data[++_top] = data;
     return 1;
   }
+
+  virtual int getType() override { return 0; }
 
   virtual ~StackVector() override { delete[] _data; }
 };
@@ -79,9 +82,9 @@ class StackList final : public IStack<T>
       return false;
   }
 
-  virtual float top() override { return pstack->data; }
+  virtual T top() override { return pstack->data; }
 
-  virtual float pop() override
+  virtual T pop() override
   {
     pnode del = pstack;
     T temp = pstack->data;
@@ -101,6 +104,8 @@ class StackList final : public IStack<T>
 
     return 1;
   }
+
+  virtual int getType() override { return 1; }
 
   virtual ~StackList() override
   {
@@ -122,6 +127,7 @@ class Menu final
 {
  private:
   int _stackType = -1;
+  int _elementCount = -1;
 
   template <typename T>
   T _input(const string &message)
@@ -235,32 +241,27 @@ class Menu final
   template <class T>
   void _sort(IStack<T> *stack)
   {
-    StackList<T> t1, t2;
-    do
-    {
-      t1.push(stack->top());
-      stack->pop();
-      while (!stack->isEmpty())
-      {
-        if (stack->top() > t1.top())
-          t1.push(stack->top());
-        else
-          t2.push(stack->top());
-        stack->pop();
-      }
-      while (!t1.isEmpty())
-      {
-        stack->push(t1.top());
-        t1.pop();
-      }
-      if (t2.isEmpty()) break;
-      while (!t2.isEmpty())
-      {
-        stack->push(t2.top());
-        t2.pop();
-      }
+    IStack<T> *tmp;
+    if (stack->getType())
+      tmp = new StackList<T>();
+    else
+      tmp = new StackVector<T>(_elementCount);
 
-    } while (true);
+    while (!stack->isEmpty())
+    {
+      T element = stack->pop();
+      while (!tmp->isEmpty() && tmp->top() > element)
+      {
+        stack->push(tmp->top());
+        tmp->pop();
+      }
+      tmp->push(element);
+    }
+    while (!tmp->isEmpty())
+    {
+      stack->push(tmp->top());
+      tmp->pop();
+    }
   }
 
   template <class T>
@@ -317,10 +318,11 @@ class Menu final
 
                 break;
               case 2:
+                _elementCount = _input<int>("Введите количество элементов дека: ");
                 if (_stackType == 1)
-                  stack<float> = new StackVector<float>(_input<int>("Введите количество элементов дека: "));
+                  stack<float> = new StackVector<float>(_elementCount);
                 else if (_stackType == 2)
-                  stack<char> = new StackVector<char>(_input<int>("Введите количество элементов дека: "));
+                  stack<char> = new StackVector<char>(_elementCount);
                 else
                   return -1;
 

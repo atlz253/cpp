@@ -118,32 +118,24 @@ class Menu final
   template <class T>
   void _sort(stack<T> *st)
   {
-    stack<T> t1, t2;
-    do
-    {
-      t1.push(st->top());
-      st->pop();
-      while (!st->empty())
-      {
-        if (st->top() > t1.top())
-          t1.push(st->top());
-        else
-          t2.push(st->top());
-        st->pop();
-      }
-      while (!t1.empty())
-      {
-        st->push(t1.top());
-        t1.pop();
-      }
-      if (t2.empty()) break;
-      while (!t2.empty())
-      {
-        st->push(t2.top());
-        t2.pop();
-      }
+    stack<T> tmp;
 
-    } while (true);
+    while (!st->empty())
+    {
+      T element = st->top();
+              st->pop();
+      while (!tmp.empty() && tmp.top() > element)
+      {
+        st->push(tmp.top());
+        tmp.pop();
+      }
+      tmp.push(element);
+    }
+    while (!tmp.empty())
+    {
+      st->push(tmp.top());
+      tmp.pop();
+    }
   }
 
   template <class T>
